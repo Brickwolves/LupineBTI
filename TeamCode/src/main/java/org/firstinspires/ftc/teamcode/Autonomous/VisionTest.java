@@ -12,6 +12,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
+import org.firstinspires.ftc.teamcode.Hardware.Vision;
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.BackCamera;
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.FrontCamera;
 import org.firstinspires.ftc.teamcode.Utilities.Loggers.Side;
 
 
@@ -21,7 +24,7 @@ public class VisionTest extends LinearOpMode
     // Declare OpMode members.
     public Robot robot;
     private ElapsedTime runtime = new ElapsedTime();
-
+    public Vision vision;
 
 
     public void initialize(){
@@ -44,8 +47,7 @@ public class VisionTest extends LinearOpMode
         waitForStart();
 
         if (opModeIsActive()){
-            robot.orientToDuck();
-            robot.intakeDuck();
+            vision.orientToDuck();
 
         }
    }

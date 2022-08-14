@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Vision;
 
 import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.DEBUG_MODE;
 
+import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.DEGREE_RANGE;
 import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.FRONT_MAX_CB;
 import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.FRONT_MAX_CR;
 import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.FRONT_MAX_Y;
@@ -9,11 +10,14 @@ import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.FRONT_MIN
 import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.FRONT_MIN_CR;
 import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.FRONT_MIN_Y;
 import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.currentDuckPos;
+import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.isActive;
+import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.VisionUtils.FRONT_CAMERA_HEIGHT;
 import static org.firstinspires.ftc.teamcode.Utilities.VisionUtils.FRONT_IMG_HEIGHT;
 import static org.firstinspires.ftc.teamcode.Utilities.VisionUtils.FRONT_IMG_WIDTH;
 import static org.firstinspires.ftc.teamcode.Utilities.VisionUtils.pixels2Degrees2;
 import static org.firstinspires.ftc.teamcode.Utilities.VisionUtils.sortRectsByMaxOption;
+import static org.firstinspires.ftc.teamcode.Vision.DuckPipelineLR.isDuckFound;
 import static org.opencv.core.Core.inRange;
 
 import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.FRONT_CAMERA_OFFSET;
@@ -29,7 +33,10 @@ import static java.lang.Math.log;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.toRadians;
 
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision;
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.Cameras;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.FrontCamera;
 import org.firstinspires.ftc.teamcode.Utilities.VisionUtils;
 import org.opencv.core.Mat;
@@ -57,6 +64,7 @@ public class DuckPipelineDetect extends OpenCvPipeline {
     public double distanceToDuck2;
     public double pixMid2Mid2;
     public double disMid2Mid2;
+
 
     public static boolean isDuckFound;
 
@@ -151,10 +159,6 @@ public class DuckPipelineDetect extends OpenCvPipeline {
     public double degreeError2Duck(){
         return disMid2Mid2;
     }
-
-
-
-
 
 
 }

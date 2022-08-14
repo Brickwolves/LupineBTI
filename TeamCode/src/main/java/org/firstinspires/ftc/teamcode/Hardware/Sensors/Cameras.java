@@ -13,6 +13,8 @@ public class Cameras {
     public FrontCamera fcam;
     public BackCamera bcam;
 
+    public Cameras cameras = new Cameras();
+
     public Cameras(){
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());

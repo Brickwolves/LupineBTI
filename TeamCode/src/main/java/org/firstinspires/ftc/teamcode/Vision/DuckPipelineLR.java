@@ -122,4 +122,8 @@ public class DuckPipelineLR extends OpenCvPipeline {
 
 
     }
+
+    public Dash_Vision.DuckPosition detectDuckBarcode(){
+        return currentDuckPos;
+    }
 }

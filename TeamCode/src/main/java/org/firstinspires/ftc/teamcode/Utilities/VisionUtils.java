@@ -24,8 +24,8 @@ public class VisionUtils {
     public static final double FRONT_Y_FOV = 34.75;
     public static final double BACK_Y_FOV = 34.75;
     // WORKING IN INCHES
-    public static final double BACK_CAMERA_HEIGHT = 7;
-    public static final double FRONT_CAMERA_HEIGHT = 10.5;
+    public static final double BACK_CAMERA_HEIGHT = 6.5;
+    public static final double FRONT_CAMERA_HEIGHT = 10.0;
 
     // Note: All measurements in CM
 
