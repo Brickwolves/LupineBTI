@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Hardware.Vision;
 import org.firstinspires.ftc.teamcode.Utilities.Loggers.Side;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
 @Autonomous(name="VisionTest", group="Autonomous Linear Opmode")
@@ -31,6 +32,10 @@ public class VisionTest extends LinearOpMode
         vision = new Vision();
 
         Side.setBlue();
+
+        //cameras start streaming while robot is initialized
+        vision.cameras.cameraBack.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+        vision.cameras.cameraFront.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

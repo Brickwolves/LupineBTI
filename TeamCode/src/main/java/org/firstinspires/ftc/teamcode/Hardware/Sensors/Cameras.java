@@ -29,20 +29,25 @@ public class Cameras { //a class that makes two new cameras
 
     public Cameras(){
 
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        int cameraFrontMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("137357BF", "id", hardwareMap.appContext.getPackageName());
+        int cameraBackMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("D683D520", "id", hardwareMap.appContext.getPackageName());
         //creates live viewport
 
+
+        //FIX THIS
         int[] viewportIds = OpenCvCameraFactory.getInstance().splitLayoutForMultipleViewports(cameraMonitorViewId, 2, OpenCvCameraFactory.ViewportSplitMethod.VERTICALLY);
 
-        WebcamName webcamName = hardwareMap.get(WebcamName.class, "NAME_OF_CAMERA_IN_CONFIG_FILE");
+        //assigns the cameras' names to be what i entered into the config
+        WebcamName webcamNameFront = hardwareMap.get(WebcamName.class, "frontCam");
+        WebcamName webcamNameBack = hardwareMap.get(WebcamName.class, "backCam");
 
         //creates internal cameras
-        cameraFront = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
-        cameraBack = OpenCvCameraFactory.getInstance().createInternalCamera2(OpenCvInternalCamera2.CameraDirection.BACK,cameraMonitorViewId);
+        cameraFront = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraFrontMonitorViewId);
+        cameraBack = OpenCvCameraFactory.getInstance().createInternalCamera2(OpenCvInternalCamera2.CameraDirection.BACK, cameraBackMonitorViewId);
 
         //creates cameras (w/ live preview)
-        cameraFront = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
-        cameraBack = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
+        cameraFront = OpenCvCameraFactory.getInstance().createWebcam(webcamNameFront, cameraFrontMonitorViewId);
+        cameraBack = OpenCvCameraFactory.getInstance().createWebcam(webcamNameBack, cameraBackMonitorViewId);
 
         //start a streaming sesh on the front camera
         cameraFront.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
