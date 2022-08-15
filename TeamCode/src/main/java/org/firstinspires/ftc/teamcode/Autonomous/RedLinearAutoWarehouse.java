@@ -13,9 +13,7 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
-import org.firstinspires.ftc.teamcode.Hardware.Sensors.BackCamera;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Cameras;
-import org.firstinspires.ftc.teamcode.Hardware.Sensors.FrontCamera;
 import org.firstinspires.ftc.teamcode.Hardware.Vision;
 import org.firstinspires.ftc.teamcode.Utilities.Loggers.Side;
 
@@ -42,7 +40,8 @@ public class RedLinearAutoWarehouse extends LinearOpMode
 
         initialize();
 
-        vision.backCamera.back_pipeline.detectDuckBarcode();
+
+        vision.cameras.back_pipeline.detectDuckBarcode();
 
         multTelemetry.addLine("Waiting for start");
         multTelemetry.addData("duck barcode", currentDuckPos);

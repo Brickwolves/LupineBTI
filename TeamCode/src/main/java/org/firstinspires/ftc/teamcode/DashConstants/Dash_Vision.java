@@ -6,6 +6,10 @@ import org.opencv.core.Scalar;
 @Config
 public class Dash_Vision {
 
+    public static boolean isFrontCamTuning = true;
+    //(for FTC dashboard) if front camera is being tuned, start streaming the front camera
+    //else the back cam should start streaming
+
     public static double FRONT_MAX_Y = 255; //hardcoded YCrCb values from dashboard
     public static double FRONT_MAX_CR = 170;
     public static double FRONT_MAX_CB = 65;
@@ -35,6 +39,8 @@ public class Dash_Vision {
     public enum DuckPosition{
         LEFT_BARCODE, RIGHT_BARCODE
     }
+
+
 
 
 

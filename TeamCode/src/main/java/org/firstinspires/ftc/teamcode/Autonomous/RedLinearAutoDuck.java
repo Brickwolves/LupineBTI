@@ -36,7 +36,7 @@ public class RedLinearAutoDuck extends LinearOpMode
 
         initialize();
 
-        vision.backCamera.back_pipeline.detectDuckBarcode();
+        vision.cameras.back_pipeline.detectDuckBarcode();
 
         multTelemetry.addLine("Waiting for start");
         multTelemetry.update();

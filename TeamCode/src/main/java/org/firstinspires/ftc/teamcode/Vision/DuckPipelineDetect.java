@@ -10,6 +10,7 @@ import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.FRONT_MIN
 import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.FRONT_MIN_CR;
 import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.FRONT_MIN_Y;
 import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.currentDuckPos;
+import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.isFrontCamTuning;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.isActive;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.VisionUtils.FRONT_CAMERA_HEIGHT;
@@ -37,7 +38,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Cameras;
-import org.firstinspires.ftc.teamcode.Hardware.Sensors.FrontCamera;
 import org.firstinspires.ftc.teamcode.Utilities.VisionUtils;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -65,8 +65,8 @@ public class DuckPipelineDetect extends OpenCvPipeline {
     public double pixMid2Mid2;
     public double disMid2Mid2;
 
-
     public static boolean isDuckFound;
+
 
 
     @Override
