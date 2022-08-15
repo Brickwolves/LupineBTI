@@ -49,6 +49,7 @@ public class RedLinearAutoWarehouse extends LinearOpMode
         multTelemetry.update();
 
         robot = new Robot();
+        vision = new Vision();
 
 
         waitForStart();

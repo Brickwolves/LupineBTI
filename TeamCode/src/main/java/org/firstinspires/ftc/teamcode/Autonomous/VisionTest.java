@@ -30,6 +30,7 @@ public class VisionTest extends LinearOpMode
     public void initialize(){
         setOpMode(this);
         robot = new Robot();
+        vision = new Vision();
 
         Side.setBlue();
     }

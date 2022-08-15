@@ -12,6 +12,7 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
+import org.firstinspires.ftc.teamcode.Hardware.Vision;
 import org.firstinspires.ftc.teamcode.Utilities.Loggers.Side;
 
 
@@ -19,6 +20,7 @@ import org.firstinspires.ftc.teamcode.Utilities.Loggers.Side;
 public class RedLinearAutoDuck extends LinearOpMode
 {
     Robot robot;
+    Vision vision;
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -34,10 +36,13 @@ public class RedLinearAutoDuck extends LinearOpMode
 
         initialize();
 
+        vision.backCamera.back_pipeline.detectDuckBarcode();
+
         multTelemetry.addLine("Waiting for start");
         multTelemetry.update();
 
         robot = new Robot();
+        vision = new Vision();
 
 
         waitForStart();
