@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
+import static org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision.currentDuckPos;
 
 import android.os.Build;
 
@@ -11,6 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Utilities.Loggers.Side;
 
@@ -39,6 +41,7 @@ public class VisionTest extends LinearOpMode
         initialize();
 
         multTelemetry.addLine("Waiting for start");
+        multTelemetry.addData("duck position", currentDuckPos);
         multTelemetry.update();
 
         waitForStart();
@@ -46,7 +49,6 @@ public class VisionTest extends LinearOpMode
         if (opModeIsActive()){
 
             robot.orientToDuck();
-            robot.intakeDuck();
 
         }
    }

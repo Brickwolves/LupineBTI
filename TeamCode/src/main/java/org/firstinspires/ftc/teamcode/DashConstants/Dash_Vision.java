@@ -16,7 +16,7 @@ public class Dash_Vision {
 
     public static boolean DEBUG_MODE = false;
 
-    public static double CAMERA_OFFSET = 10.0;
+    public static double CAMERA_OFFSET = 5.0;
 
     public static double DEGREE_RANGE = 100;
 
