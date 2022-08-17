@@ -10,14 +10,18 @@ import static org.firstinspires.ftc.teamcode.Vision.DuckPipelineDetect.isDuckFou
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.Camera;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Cameras;
 import org.java_websocket.framing.FramedataImpl1;
 import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
 public class Vision extends Robot{
+    //I want this to function like the robot class
     // i made a class just for vision so it wouldn't interfere with the teleop stuff
     //THIS IS WHERE I PUT THE ORIENTTODUCK AND INTAKEDUCK METHODS
 
+    public Camera camera;
     public Cameras cameras;
 
     /**
@@ -42,7 +46,7 @@ public class Vision extends Robot{
             if (isDuckFound){ //if the camera sees the duck
                 timeout = 3;
                 //setPoint = target angle
-                double setPoint = FRONT_CAMERA_OFFSET + cameras.front_pipeline.degreeError2Duck() + gyro.getAngle();
+                double setPoint = FRONT_CAMERA_OFFSET + cameras.cameraFront.front_pipeline.degreeError2Duck() + gyro.getAngle();
                 //calculates the difference between robot's current angle and target angle
                 //finds how much farther robot has to turn
                 double correction = drivetrain.rotationalPID.update(gyro.getAngle() - setPoint, true);
@@ -85,7 +89,7 @@ public class Vision extends Robot{
     //a method that prompts the robot to drive to and intake the duck
     //this method is also just for fcam
     public void intakeDuck(){
-        double distance2Duck2 = cameras.front_pipeline.getDistanceToDuck2();
+        double distance2Duck2 = camera.front_pipeline.getDistanceToDuck2();
         ElapsedTime timer = new ElapsedTime();
         timer.reset();
         while (isDuckFound && timer.seconds() < 3){
@@ -94,6 +98,14 @@ public class Vision extends Robot{
         }
     }
 
+
+    public void tuneOneCamAtATime(){
+        if (isFrontCamTuning){ //if front camera is the camera being tuned in dashboard, then front cam will start streaming
+            camera.cameraFront.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+        } else { //else the back cam will start streaming
+            camera.cameraBack.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+        }
+    }
 
 
 

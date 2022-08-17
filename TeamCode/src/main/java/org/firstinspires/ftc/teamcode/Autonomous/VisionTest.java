@@ -35,7 +35,7 @@ public class VisionTest extends LinearOpMode
 
         //cameras start streaming while robot is initialized
         vision.cameras.cameraBack.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
-        vision.cameras.cameraFront.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -51,6 +51,7 @@ public class VisionTest extends LinearOpMode
         waitForStart();
 
         if (opModeIsActive()){
+            vision.cameras.cameraFront.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
             vision.orientToDuck();
 
         }

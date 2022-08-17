@@ -23,12 +23,16 @@ public class Robot {
       initRobot();
    }
 
+   public Vision vision;
+
 
    public void initRobot() {
       drivetrain = new Mecanum();
       duck = new DuckSpinner("duck");
 
       gyro = new IMU( "imu");
+
+      vision = new Vision(); //please pretty please don't cause disconnects
 
 
       multTelemetry.addData("Status", "Initialized");
