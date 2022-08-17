@@ -120,6 +120,14 @@ public class Scoring {
         }
         bucket.setPosition(0.15);
     }
+    public void autoLow(){
+        lip.setPosition(0.28);
+        bucket.setPosition(.9);
+        spool.setTargetPosition(200);
+        while (spool.getCurrentPosition() < 200){}
+        bucket.setPosition(0.15);
+
+    }
 
     public void autoDeposit(){
         lip.setPosition(0);
