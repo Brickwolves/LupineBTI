@@ -29,7 +29,7 @@ public class RedLinearAutoWarehouse extends LinearOpMode
         Side.setRed();
         robot = new Robot();
         Mat input = new Mat();
-        robot.cameras.bcam.back_pipeline.processFrame(input);
+        robot.webcam.duckPipeline.processFrame(input);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
