@@ -15,17 +15,12 @@ public class VisionUtils {
      * Static constants related to the camera's specifications
      * The VisionUtils functions require these constants for its calculations
      */
-    public static double FRONT_IMG_WIDTH = 432;
-    public static double BACK_IMG_WIDTH = 432;
-    public static double FRONT_IMG_HEIGHT = 240;
-    public static double BACK_IMG_HEIGHT = 240;
-    public static final double FRONT_X_FOV = 45.25;
-    public static final double BACK_X_FOV = 45.25;
-    public static final double FRONT_Y_FOV = 34.75;
-    public static final double BACK_Y_FOV = 34.75;
+    public static double IMG_WIDTH = 432;
+    public static double IMG_HEIGHT = 240;
+    public static final double X_FOV = 45.25;
+    public static final double Y_FOV = 34.75;
     // WORKING IN INCHES
-    public static final double BACK_CAMERA_HEIGHT = 7;
-    public static final double FRONT_CAMERA_HEIGHT = 10.5;
+    public static final double CAMERA_HEIGHT = 10.5;
 
     // Note: All measurements in CM
 
@@ -51,12 +46,9 @@ public class VisionUtils {
      * @return  a double representing the distance of pixels as a number of degrees spanning the
      *          camera lens
      */
-    public static double pixels2Degrees1(double pixels, AXES axe) {
-        return (axe == AXES.X) ? pixels * (BACK_X_FOV / BACK_IMG_WIDTH) : pixels * (BACK_Y_FOV / BACK_IMG_HEIGHT);
-    }
 
-    public static double pixels2Degrees2(double pixels, AXES axe){
-        return (axe == AXES.X) ? pixels * (FRONT_X_FOV / FRONT_IMG_WIDTH) : pixels * (FRONT_Y_FOV / FRONT_IMG_HEIGHT);
+    public static double pixels2Degrees(double pixels, AXES axe){
+        return (axe == AXES.X) ? pixels * (X_FOV / IMG_WIDTH) : pixels * (Y_FOV / IMG_HEIGHT);
     }
 
     /**

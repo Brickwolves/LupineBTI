@@ -3,8 +3,7 @@ package org.firstinspires.ftc.teamcode.Hardware.Sensors;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Vision.DuckPipelineDetect;
-import org.firstinspires.ftc.teamcode.Vision.DuckPipelineLR;
+import org.firstinspires.ftc.teamcode.Vision.DuckPipeline;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -15,8 +14,7 @@ public class Camera {
     private OpenCvCamera webcam;
     private String id;
     private int viewportID;
-    public DuckPipelineLR back_pipeline = new DuckPipelineLR();
-    public DuckPipelineDetect front_pipeline = new DuckPipelineDetect();
+    public DuckPipeline duckPipeline = new DuckPipeline();
 
 
     public Camera(String id, int viewportID){
@@ -24,12 +22,8 @@ public class Camera {
         this.viewportID = viewportID;
 
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, id), viewportID);
+        webcam.setPipeline(duckPipeline);
 
-        if (this.id.equals("frontCam")){ //assigns a camera to a pipeline based on its String id
-            webcam.setPipeline(front_pipeline);
-        } else {
-            webcam.setPipeline(back_pipeline);
-        }
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
