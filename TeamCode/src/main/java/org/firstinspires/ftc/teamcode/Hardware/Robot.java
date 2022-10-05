@@ -38,7 +38,7 @@ public class Robot {
       drivetrain = new Mecanum();
       duck = new DuckSpinner("duck");
       scorer = new Scoring();
-      webcam = new Camera("webcam", 1); //wtf is a viewport id?
+      webcam = new Camera("webcam", 1);
 
       gyro = new IMU( "imu");
 
@@ -47,9 +47,10 @@ public class Robot {
       multTelemetry.update();
    }
 
-
-   //find duck, turn to duck, lock onto duck
-   public void orientToDuck(){ //NOTE: this method is only for front cam
+   /**
+    * a method that will search for, orient to, and lock on to a duck
+    */
+   public void orientToDuck(){
       ElapsedTime timer = new ElapsedTime();
       timer.reset(); //timer is 0
       double theta = gyro.getAngle(); //robot's current angle BEFORE the loop begins
