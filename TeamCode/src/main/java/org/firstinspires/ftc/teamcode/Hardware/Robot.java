@@ -52,7 +52,7 @@ public class Robot {
     */
    public void orientToDuck(){
       ElapsedTime timer = new ElapsedTime();
-      timer.reset(); //timer is 0
+      timer.reset(); //timer is 0/robot's current angle BEFORE the loop begins
       double theta = gyro.getAngle(); //robot's current angle BEFORE the loop begins
       boolean reachedAng1 = false;
       boolean reachedAng2 = false;

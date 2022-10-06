@@ -61,7 +61,7 @@ public class DuckPipeline extends OpenCvPipeline {
     @Override
     public Mat processFrame(Mat input) {
         IMG_HEIGHT = input.rows(); //input image height
-        IMG_HEIGHT = input.cols(); //input image width
+        IMG_WIDTH = input.cols(); //input image width
         input.copyTo(output); //copying input image to output
         cvtColor(input, modified, COLOR_RGB2YCrCb); //call to "convert color" method
 
