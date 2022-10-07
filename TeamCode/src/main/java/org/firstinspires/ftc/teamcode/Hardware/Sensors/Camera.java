@@ -17,11 +17,11 @@ public class Camera {
     public DuckPipeline duckPipeline = new DuckPipeline();
 
 
-    public Camera(String id, int viewportID){
+    public Camera(String id){
         this.id = id;
-        this.viewportID = viewportID;
+        //this.viewportID = viewportID;
 
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, id), viewportID);
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, id)); //no more viewportID here either
         webcam.setPipeline(duckPipeline);
 
 

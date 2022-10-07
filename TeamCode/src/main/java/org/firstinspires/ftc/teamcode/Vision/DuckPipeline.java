@@ -32,6 +32,7 @@ import org.firstinspires.ftc.teamcode.DashConstants.Dash_Vision;
 import org.firstinspires.ftc.teamcode.Utilities.VisionUtils;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.openftc.easyopencv.OpenCvPipeline;
@@ -60,8 +61,8 @@ public class DuckPipeline extends OpenCvPipeline {
 
     @Override
     public Mat processFrame(Mat input) {
-        IMG_HEIGHT = input.rows(); //input image height
-        IMG_WIDTH = input.cols(); //input image width
+        IMG_HEIGHT = input.rows() / 2; //input image height
+        IMG_WIDTH = input.cols() / 2; //input image width
         input.copyTo(output); //copying input image to output
         cvtColor(input, modified, COLOR_RGB2YCrCb); //call to "convert color" method
 
