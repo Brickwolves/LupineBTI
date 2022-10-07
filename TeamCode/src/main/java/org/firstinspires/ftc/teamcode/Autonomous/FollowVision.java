@@ -3,18 +3,22 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
-import org.firstinspires.ftc.teamcode.Hardware.Vision;
 import org.firstinspires.ftc.teamcode.Utilities.Loggers.Side;
 
+@Autonomous(name="FollowVision", group = "Autonomous Linear OpMode")
 public class FollowVision extends LinearOpMode {
 
     //declare opMode members
     public Robot robot;
-    public Vision vision;
     private ElapsedTime runtime = new ElapsedTime();
 
 
@@ -25,6 +29,8 @@ public class FollowVision extends LinearOpMode {
         Side.setBlue();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
     public void runOpMode() {
 
         initialize();
@@ -35,7 +41,7 @@ public class FollowVision extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive()) {
-            vision.followDuck();
+            robot.followDuck();
         }
     }
 

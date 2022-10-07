@@ -12,16 +12,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
-import org.firstinspires.ftc.teamcode.Hardware.Vision;
 import org.firstinspires.ftc.teamcode.Utilities.Loggers.Side;
 
 
-@Autonomous(name="VisionTest", group="Autonomous Linear Opmode")
+@Autonomous(name="BlindVision", group="Autonomous Linear Opmode")
 public class BlindVision extends LinearOpMode
 {
     // Declare OpMode members.
     public Robot robot;
-    public Vision vision;
     private ElapsedTime runtime = new ElapsedTime();
 
 
@@ -46,7 +44,7 @@ public class BlindVision extends LinearOpMode
         waitForStart();
 
         if (opModeIsActive()){
-            vision.blindOrientToDuck();
+            robot.blindOrientToDuck();
             //robot.intakeDuck();
 
         }
