@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_WITHOUT_ENCODER;
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.STOP_AND_RESET_ENCODER;
+import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.angleMode.DEGREES;
+import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.cos;
+import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.sin;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.isActive;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
@@ -86,6 +89,7 @@ public class Mecanum {
         return (Math.abs(fr.getCurrentPosition()) + Math.abs(fl.getCurrentPosition()) + Math.abs(br.getCurrentPosition()) + Math.abs(bl.getCurrentPosition()))/4.0;
     }
 
+
     /**
      * Sets the same power to all four motors
      * @param power
@@ -107,11 +111,7 @@ public class Mecanum {
      * @param power
      */
     public void setDrivePower(double drive, double strafe, double turn, double power){
-        /*
 
-                Y O U R   C O D E   H E R E
-
-         */
         double frPower = (drive - strafe - turn) * power;
         double flPower = (drive + strafe + turn) * power;
         double brPower = (drive + strafe - turn) * power;
@@ -128,7 +128,7 @@ public class Mecanum {
      * Translates the robot autonomously a certain distance known as ticks
      * @param ticks
      */
-    public void strafe(double ticks, double acceleration, double deceleration, double maxSpeed, IMU currentAngle, boolean fowards){
+    public void strafe(double ticks, double acceleration, double deceleration, double maxSpeed, IMU currentAngle, boolean forwards){
         resetMotors();
         double power = 0.0;
         double position = 0.0;
@@ -148,13 +148,13 @@ public class Mecanum {
             if (position == ticks){
                 setAllPower(0.0);
             }
-            if(fowards) {
+            if(forwards) {
                 setDrivePower(power, 0.0, -rotationalPID.update(startingAngle - currentAngle.getAngle(), false), 1.0);
             }
             else{
-                setDrivePower(0.0, power, -rotationalPID.update(startingAngle - currentAngle.getAngle(), false), 1.0);
+                setDrivePower(0.0, power, -rotationalPID.update(startingAngle - currentAngle.getAngle(), false), 0.0); //changed power from 1 to 0 here
             }
-            multTelemetry.addData("posistion", position);
+            multTelemetry.addData("position", position);
             multTelemetry.addData("distance", ticks);
             multTelemetry.addData("speed", power);
             multTelemetry.addData("flmotorpos", fl.getCurrentPosition());
@@ -164,19 +164,34 @@ public class Mecanum {
             multTelemetry.update();
         }
         setAllPower(0.0);
-        /*
-
-                Y O U R   C O D E   H E R E
-
-         */
     }
+
+    public void basicStrafe(double ticks){
+        resetMotors();
+        double current_distance = 0.0;
+        double power = 0.5;
+
+        if (ticks < 0){ //of ticks are negative
+            power = -0.5;
+        }
+
+        while (Math.abs(current_distance) < Math.abs(ticks) && isActive()){
+            current_distance = getPosition();
+            setAllPower(power);
+
+            multTelemetry.addData("current distance", current_distance);
+            multTelemetry.update();
+        }
+        setAllPower(0.0); //stop moving
+    }
+
 
     /**
      * Rotates the robot autonomously a certain number of degrees with a margin of error
      * @param degrees
      * @param currentAngle
      */
-    public void turn(double degrees, IMU currentAngle){
+    public void turn(double degrees, IMU currentAngle){ //I think this is ok
         ElapsedTime timer = new ElapsedTime();
         double targetAngle = MathUtils.closestAngle(degrees, currentAngle.getAngle());
 
@@ -187,12 +202,6 @@ public class Mecanum {
             multTelemetry.update();
         }
         setAllPower(0.0);
-        /*
-
-                Y O U R   C O D E   H E R E
-
-         */
-
     }
 
 

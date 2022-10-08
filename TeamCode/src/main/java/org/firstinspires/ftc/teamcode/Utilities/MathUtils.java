@@ -35,6 +35,13 @@ public class MathUtils {
         return floorMod(Math.round(dividend * 1e6), divisor) / 1e6;
     }
 
+    public static Point unShift(Point sp, double shiftAngle){ //for betterStrafe in Mecanum
+        double r = toRadians(shiftAngle);
+        double x = sp.x * Math.sin(r) + sp.y * Math.cos(r);
+        double y = sp.x * Math.cos(r) - sp.y * Math.sin(r);
+        return new Point(x, y);
+    }
+
     /**
      * @param x
      * @param a_min

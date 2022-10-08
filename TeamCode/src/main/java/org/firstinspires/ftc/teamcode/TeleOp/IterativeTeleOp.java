@@ -38,7 +38,7 @@ import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 
 //@Disabled
-@TeleOp(name="Iterative TeleOp", group="Iterative Opmode")
+@TeleOp(name="Iterative TeleOp", group="Iterative OpMode")
 public class IterativeTeleOp extends OpMode {
 
     // Declare OpMode members.
@@ -51,19 +51,16 @@ public class IterativeTeleOp extends OpMode {
 
     public enum SlidesState {HIGH, MIDDLE, LOW, SHARED, DOWN}
 
-    public SlidesState slidesState = SlidesState.DOWN;
+    public SlidesState slidesState = SlidesState.DOWN; //start in the down position
 
     // Declare OpMode members.
     Robot robot;
     Controller controller;
     Controller controller2;
 
-
-
     /*
      * Code to run ONCE when the driver hits INIT
      */
-
     @Override
     public void init() {
         setOpMode(this);
@@ -74,10 +71,6 @@ public class IterativeTeleOp extends OpMode {
         robot = new Robot();
         controller = new Controller(gamepad1);
         controller2 = new Controller(gamepad2);
-        /*
-                    Y O U R   C O D E   H E R E
-                                                    */
-
 
         multTelemetry.addData("Status", "Initialized");
         multTelemetry.addLine(":-)");
@@ -103,11 +96,6 @@ public class IterativeTeleOp extends OpMode {
     public void start() {
         runtime.reset();
 
-
-        /*
-                    Y O U R   C O D E   H E R E
-                                                   */
-
         multTelemetry.addData("Status", "Started");
         multTelemetry.update();
     }
@@ -115,7 +103,6 @@ public class IterativeTeleOp extends OpMode {
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
      */
-
     @Override
     public void loop() {
         Controller.update();
@@ -123,14 +110,17 @@ public class IterativeTeleOp extends OpMode {
         double power;
 
         //PID and Kinetic Turning
-        double rotation = controller.get(RIGHT, X);
+        double rotation = controller.get(RIGHT, X); //right joystick
 
         // Turn off PID if we manually turn
         // Turn on PID if we're not manually turning and the robot's stops rotating
         double currentRateOfChange = robot.gyro.rateOfChange();
-        if (!(rotation == 0)) pid_on = false;
-        else if (currentRateOfChange <= rateOfChange) pid_on = true;
-
+        if (!(rotation == 0)){
+            pid_on = false;
+        }
+        else if (currentRateOfChange <= rateOfChange){
+            pid_on = true;
+        }
 
 
         //TURN WRAPPING
@@ -158,16 +148,14 @@ public class IterativeTeleOp extends OpMode {
         pid_on_last_cycle = pid_on;
 
 
-
-
         //DUCKWHEEL CODE
-        if(controller2.get(CIRCLE, TOGGLE)){
-            if(Side.red) {
+        if (controller2.get(CIRCLE, TOGGLE)) {
+            if (Side.red) {
                 robot.duck.spin();
-            }else{
+            } else {
                 robot.duck.backspin();
             }
-        }else{
+        } else {
             robot.duck.stop();
         }
 
@@ -181,34 +169,33 @@ public class IterativeTeleOp extends OpMode {
         }
 
 
-
         //DEPOSITOR CODE
-        if(controller2.get(DPAD_UP, TAP) && slidesState != SlidesState.HIGH){
+        if (controller2.get(DPAD_UP, TAP) && slidesState != SlidesState.HIGH) {
             slidesState = SlidesState.HIGH;
             robot.scorer.time.reset();
         }
 
-        if(controller2.get(DPAD_L, TAP) && slidesState != SlidesState.MIDDLE){
+        if (controller2.get(DPAD_L, TAP) && slidesState != SlidesState.MIDDLE) {
             slidesState = SlidesState.MIDDLE;
             robot.scorer.time.reset();
         }
 
-        if(controller2.get(DPAD_R, TAP) && slidesState != SlidesState.LOW){
+        if (controller2.get(DPAD_R, TAP) && slidesState != SlidesState.LOW) {
             slidesState = SlidesState.LOW;
             robot.scorer.time.reset();
         }
 
-        if(controller2.get(DPAD_DN, TAP) && slidesState != SlidesState.SHARED){
+        if (controller2.get(DPAD_DN, TAP) && slidesState != SlidesState.SHARED) {
             slidesState = SlidesState.SHARED;
             robot.scorer.time.reset();
         }
 
-        if(controller2.get(SQUARE, TAP) && slidesState != SlidesState.DOWN){
+        if (controller2.get(SQUARE, TAP) && slidesState != SlidesState.DOWN) {
             slidesState = SlidesState.DOWN;
             robot.scorer.time.reset();
         }
 
-        switch(slidesState){
+        switch (slidesState) {
             case HIGH:
                 robot.scorer.scoreHigh();
                 break;
@@ -224,21 +211,8 @@ public class IterativeTeleOp extends OpMode {
             case DOWN:
                 robot.scorer.deposit();
                 break;
-            }
-
-
-        if (controller.get(TRIANGLE, DOWN)){
-            robot.odoWheels.raiseWheels();
         }
-        //RUMBLE
-//        if(slidesState == SlidesState.DOWN) {
-//            if(!wasLoaded && freight != NONE){
-//                controller.src.rumble(1000);
-//                controller2.src.rumble(1000);
-//            }
-//            wasLoaded = freight != NONE;
-//
-//        }
+
 
         //DRIVING
         controller.setJoystickShift(LEFT, robot.gyro.getAngle());
