@@ -171,7 +171,7 @@ public class Mecanum {
         double current_distance = 0.0;
         double power = 0.5;
 
-        if (ticks < 0){ //of ticks are negative
+        if (ticks < 0){ //if ticks are negative
             power = -0.5;
         }
 

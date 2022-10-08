@@ -19,6 +19,7 @@ import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.SQUAR
 import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.TRIANGLE;
 import static org.firstinspires.ftc.teamcode.Controls.JoystickControls.Input.LEFT;
 import static org.firstinspires.ftc.teamcode.Controls.JoystickControls.Input.RIGHT;
+import static org.firstinspires.ftc.teamcode.Controls.JoystickControls.Value.INVERT_SHIFTED_X;
 import static org.firstinspires.ftc.teamcode.Controls.JoystickControls.Value.INVERT_SHIFTED_Y;
 import static org.firstinspires.ftc.teamcode.Controls.JoystickControls.Value.SHIFTED_X;
 import static org.firstinspires.ftc.teamcode.Controls.JoystickControls.Value.X;
@@ -32,13 +33,13 @@ import static org.firstinspires.ftc.teamcode.Utilities.PIDWeights.proportionalWe
 
 import org.firstinspires.ftc.teamcode.Controls.ButtonControls;
 import org.firstinspires.ftc.teamcode.Controls.Controller;
+import org.firstinspires.ftc.teamcode.Controls.JoystickControls;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Utilities.Loggers.Side;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 
-//@Disabled
-@TeleOp(name="Iterative TeleOp", group="Iterative OpMode")
+@TeleOp(name="Iterative TeleOp", group="Iterative Opmode")
 public class IterativeTeleOp extends OpMode {
 
     // Declare OpMode members.
@@ -53,10 +54,12 @@ public class IterativeTeleOp extends OpMode {
 
     public SlidesState slidesState = SlidesState.DOWN; //start in the down position
 
-    // Declare OpMode members.
     Robot robot;
     Controller controller;
     Controller controller2;
+
+    //PID and Kinetic Turning
+    double rotation = controller.get(RIGHT, X);
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -66,7 +69,6 @@ public class IterativeTeleOp extends OpMode {
         setOpMode(this);
 
         pid = new PID(proportionalWeight, integralWeight, derivativeWeight);
-
 
         robot = new Robot();
         controller = new Controller(gamepad1);
@@ -109,18 +111,20 @@ public class IterativeTeleOp extends OpMode {
 
         double power;
 
-        //PID and Kinetic Turning
-        double rotation = controller.get(RIGHT, X); //right joystick
-
-        // Turn off PID if we manually turn
+        // Turn off PID if we manually rotation
         // Turn on PID if we're not manually turning and the robot's stops rotating
         double currentRateOfChange = robot.gyro.rateOfChange();
-        if (!(rotation == 0)){
+        if (rotation != 0){
             pid_on = false;
         }
         else if (currentRateOfChange <= rateOfChange){
             pid_on = true;
         }
+
+
+
+
+
 
 
         //TURN WRAPPING
@@ -139,6 +143,8 @@ public class IterativeTeleOp extends OpMode {
         }
 
 
+
+
         // Lock the heading if we JUST turned PID on
         // Correct our heading if the PID has and is still on
         if (pid_on && !pid_on_last_cycle) setPoint = robot.gyro.getAngle();
@@ -146,6 +152,9 @@ public class IterativeTeleOp extends OpMode {
 
         // Update whether the PID was on or not
         pid_on_last_cycle = pid_on;
+
+
+
 
 
         //DUCKWHEEL CODE
@@ -220,13 +229,19 @@ public class IterativeTeleOp extends OpMode {
         double drive = controller.get(LEFT, INVERT_SHIFTED_Y);
         double strafe = controller.get(LEFT, SHIFTED_X);
 
-        if(controller.get(LB1, ButtonControls.ButtonState.DOWN)){
+        power = 0.8;
+
+        if(controller.get(LB1, ButtonControls.ButtonState.DOWN)) { //toggles slow speed
             power = 0.3;
-        }else{
-            power = 0.8;
         }
 
+
+
         robot.drivetrain.setDrivePower(drive, strafe, rotation, power);
+
+        //SIDE
+        Side.red = !controller2.get(RB1, TOGGLE);
+
     /*
          ----------- L O G G I N G -----------
                                             */
@@ -238,10 +253,6 @@ public class IterativeTeleOp extends OpMode {
 
     @Override
     public void stop(){
-
-        /*
-                    Y O U R   C O D E   H E R E
-                                                   */
 
     }
 }
